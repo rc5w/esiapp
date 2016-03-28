@@ -1,0 +1,17 @@
+package com.emergencyskills.doe.aed.Utils;
+
+import com.emergencyskills.doe.aed.models.PickSchoolModel;
+import com.emergencyskills.doe.aed.models.Schoolinfomodel;
+
+import java.util.ArrayList;
+
+/**
+ * Created by BWT on 10/1/15.
+ */
+public class Constants {
+
+    public static ArrayList<PickSchoolModel> pickSchoolListModelArray;
+    public static ArrayList<Schoolinfomodel> schoolinfomodelsArray;
+    public static String loginstatus="success";
+    public static String loginkey="login";
+}

@@ -1,0 +1,1329 @@
+package com.emergencyskills.doe.aed.UI.fragments;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.emergencyskills.doe.aed.R;
+import com.emergencyskills.doe.aed.UI.activity.CaptureSignature;
+import com.emergencyskills.doe.aed.Utils.DatePicker;
+import com.emergencyskills.doe.aed.Utils.MonthYearPicker;
+import com.emergencyskills.doe.aed.Utils.MyToast;
+import com.emergencyskills.doe.aed.Utils.Networkstate;
+import com.emergencyskills.doe.aed.Utils.listops;
+import com.emergencyskills.doe.aed.models.PendingUploadModel;
+import com.emergencyskills.doe.aed.models.Schoolinfomodel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+/**
+ * Created by Karan on 12/3/2015.
+ */
+public class Addnewinstall extends Fragment implements View.OnClickListener {
+
+    private TextView scaddress,scid,scprincipal,scprinemail,sccontact,sccontactemail,sccode,submt,updateloc,phyloc, scserialnumber;
+    private String principal,contact,code,id,address,phone,installid,state,city,contactemail,contactphone,principalemail,principalphone, serialnumbers;
+        String zip;
+    private ImageView editaddress,editcontact,editprincipal;
+    int pos,insposition,serpostion;
+    JSONObject drill;
+    String sign_image;
+    String name,schoolname;
+    private EditText pad1expdate,pad2expdate,padpedexpdate,comments,pad1lot,pad2lot,padpedlot,ednewserial,totalaeds,totalresponders;
+
+    String date,time,esrname,esr_image;
+    private TextView updatepad1newdate,updatepad2newdate,updatepadpednewdate,sparebatterydate;
+
+    CheckBox newserial,statin,fastresp,datacard,pediatric;
+    ArrayList<Schoolinfomodel> drilllist,servicelist,installist;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_add_new_install, container, false);
+        // Toast.makeText(getActivity(), "service calls", Toast.LENGTH_LONG).show();
+        initview(rootView);
+        if(getArguments()!=null)
+        {
+           principalemail=getArguments().getString("principalemail");
+            phone=getArguments().getString("phone");
+            state=getArguments().getString("state");
+            zip=getArguments().getString("zip");
+            serialnumbers=getArguments().getString("serialnumbers");
+            scserialnumber.setText( "SERIAL #: " + serialnumber );
+            city=getArguments().getString("city");
+            contactemail=getArguments().getString("contactemail");
+            contactphone=getArguments().getString("contactphone");
+
+            principal=getArguments().getString("principal");
+            contact=getArguments().getString("contact");
+            code=getArguments().getString("schoolcode");
+            address=getArguments().getString("address");
+            id=getArguments().getString("schoolid");
+            installid=getArguments().getString("installid");
+
+            pos=getArguments().getInt("pos");
+            scprincipal.setText((principal+" "+principalemail));
+            sccontact.setText((contact+" "+contactemail+" "+contactphone));
+            sccode.setText(code);
+
+            scaddress.setText(address+" "+city+" "+state+" "+zip);
+        }
+        listops listops=new listops(getActivity());
+        drilllist=listops.getdrilllist();
+        servicelist=listops.getservicelist();
+        installist=listops.getinstalllist();
+        Schoolinfomodel objdr=installist.get(pos);
+        String id=objdr.getSchoolid();
+        insposition=getposition(id, drilllist);
+        serpostion=getposition(id,servicelist);
+
+
+        return rootView;
+    }
+
+    private void initview(View rootView) {
+
+        totalaeds=(EditText)rootView.findViewById(R.id.instotalaeds);
+        totalresponders=(EditText)rootView.findViewById(R.id.instotalresponders);
+
+
+        pad1expdate=(EditText)rootView.findViewById(R.id.inspad1expdate);
+        pad2expdate=(EditText)rootView.findViewById(R.id.inspad2expdate);
+        padpedexpdate=(EditText)rootView.findViewById(R.id.inspadpedexpdate);
+
+
+
+        comments=(EditText)rootView.findViewById(R.id.inscomments);
+        sparebatterydate=(TextView) rootView.findViewById(R.id.inssparebatterydate);
+        sparebatterydate.setOnClickListener(this);
+
+
+
+        updatepad1newdate=(TextView) rootView.findViewById(R.id.updateinspad1newdate);
+        updatepad2newdate=(TextView) rootView.findViewById(R.id.updateinspad2newdate);
+        updatepadpednewdate=(TextView) rootView.findViewById(R.id.updateinspadpednewdate);
+
+
+        updatepad1newdate.setOnClickListener(this);
+        updatepad2newdate.setOnClickListener(this);
+        updatepadpednewdate.setOnClickListener(this);
+
+
+        scserialnumber=(TextView)rootView.findViewById(R.id.serialnumber);
+
+
+        updateloc=(TextView) rootView.findViewById(R.id.updateinsphysicalloc);
+        updateloc.setOnClickListener(this);
+        phyloc=(TextView) rootView.findViewById(R.id.insphyloc);
+        phyloc.setOnClickListener(this);
+
+
+        scaddress=(TextView)rootView.findViewById(R.id.insaddress);
+        scprincipal=(TextView)rootView.findViewById(R.id.insprincipal);
+        sccontact=(TextView)rootView.findViewById(R.id.inscontact);
+        sccode=(TextView)rootView.findViewById(R.id.inscode);
+
+
+        //for editing
+        editaddress=(ImageView)rootView.findViewById(R.id.imginaddress);
+        editcontact=(ImageView)rootView.findViewById(R.id.imgincontact);
+        editprincipal=(ImageView)rootView.findViewById(R.id.imginprincipal);
+        //editschoolcode=(ImageView)rootView.findViewById(R.id.imgincode);
+
+
+        editaddress.setOnClickListener(this);
+        editcontact.setOnClickListener(this);
+        editprincipal.setOnClickListener(this);
+        //editschoolcode.setOnClickListener(this);
+
+
+        ednewserial=(EditText) rootView.findViewById(R.id.insednewserial);
+
+        newserial=(CheckBox)rootView.findViewById(R.id.inscbnewserial);
+        newserial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    ednewserial.setClickable(true);
+                }
+                else
+                {
+                    ednewserial.setClickable(false);
+                }
+
+
+            }
+        });
+
+        statin=(CheckBox)rootView.findViewById(R.id.insstatusindicator);
+        fastresp=(CheckBox)rootView.findViewById(R.id.insfastresponsekit);
+        datacard=(CheckBox)rootView.findViewById(R.id.inscbdatacardstatus);
+        pediatric=(CheckBox)rootView.findViewById(R.id.inscbpediatric);
+
+
+
+
+        submt=(TextView)rootView.findViewById(R.id.addnewinsubmit);
+
+        //inputsignature=(TextView)rootView.findViewById(R.id.inputsignature);
+        //inputsignature.setOnClickListener(this);
+        submt.setOnClickListener(this);
+
+        pad1lot=(EditText)rootView.findViewById(R.id.inspad1lotnumber);
+        pad2lot=(EditText)rootView.findViewById(R.id.inspad2lotnumber);
+        padpedlot=(EditText)rootView.findViewById(R.id.inspadpedlotnumber);
+        /*
+        for(int i=1;i<=14;i++)
+        {
+
+
+            pts[i]=(EditText)rootView.findViewById(pointid[i]);
+            semiantime[i]=(EditText)rootView.findViewById(semiantimeid[i]);
+            semiancomments[i]=(EditText)rootView.findViewById(semiancommentid[i]);
+            semiantime[i].setOnClickListener(this);
+
+        }*/
+    }
+    private int getposition(String id, ArrayList<Schoolinfomodel> drilllist) {
+        int dup=-1;
+
+
+        for(int i=0;i<drilllist.size();i++)
+        {
+            if(id.equals(drilllist.get(i).getSchoolid()))
+            {
+                dup=i;
+            }
+        }
+        return dup;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+         if(v.getId()==R.id.imginaddress)
+
+
+        {
+
+
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_address);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+            Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+            final EditText edstaddress=(EditText)dialog.findViewById(R.id.editstaddress);
+            final EditText edcity=(EditText)dialog.findViewById(R.id.editcity);
+            final EditText edstate=(EditText)dialog.findViewById(R.id.editstate);
+            final EditText edzip=(EditText)dialog.findViewById(R.id.editzip);
+            final EditText edphn=(EditText)dialog.findViewById(R.id.editphone);
+            edzip.setText(zip);
+            edstaddress.setText(address);
+            edcity.setText(city);
+            edstate.setText(state);
+            edphn.setText(phone);
+
+
+            
+            TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+            txt.setText("Address and Phone");
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    address=edstaddress.getText().toString();
+                    city=edcity.getText().toString();
+                    state=edstate.getText().toString();
+                    zip=edzip.getText().toString();
+                    phone=edphn.getText().toString();
+                    if(!address.isEmpty()&&!city.isEmpty()&&!state.isEmpty()&&!zip.isEmpty()&&!phone.isEmpty())
+                    {
+                        scaddress.setText(address+" "+city+" "+state+" "+zip+" "+phone);
+                        //change in drilllist
+                        Schoolinfomodel objdr=installist.get(pos);
+
+                        objdr.setAdreess(address);
+                        objdr.setCity(city);
+                        objdr.setState(state);
+                        objdr.setZip(zip);
+                        objdr.setPhone(phone);
+
+                        //changes in installlist
+                        Log.e("dasf",insposition+"");
+                        if(insposition!=-1) {
+
+                            Schoolinfomodel objin = drilllist.get(insposition);
+                            objin.setAdreess(address);
+                            objin.setCity(city);
+                            objin.setState(state);
+                            objin.setZip(zip);
+                            objin.setPhone(phone);
+                        }
+
+                        //changes in servicelist
+                        if(serpostion!=-1) {
+                            Schoolinfomodel objser = servicelist.get(serpostion);
+
+                            objser.setAdreess(address);
+                            objser.setCity(city);
+                            objser.setState(state);
+                            objser.setZip(zip);
+                            objser.setPhone(phone);
+                        }
+
+                        listops listops=new listops(getActivity());
+                        listops.putdrilllist(drilllist);
+                        listops.putinstallllist(installist);
+                        listops.putservicelist(servicelist);
+                        dialog.dismiss();
+                    }
+                    else
+                    {
+                        MyToast.popmessage("Please Enter all the field",getActivity());
+                    }
+                }
+            });
+            dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+
+        }
+
+        /* else if(v.getId()==R.id.inputsignature)
+         {
+             final Dialog dailog=new Dialog(getActivity());
+             dailog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+             dailog.setContentView(R.layout.dialog_input_signatures);
+             dailog.show();
+         }*/
+        else if(v.getId()==R.id.imgincontact)
+        {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_edit_prin_contacat);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+            Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+            final EditText ednme=(EditText)dialog.findViewById(R.id.editname);
+            final EditText edphn=(EditText)dialog.findViewById(R.id.editphone);
+            final EditText edemail=(EditText)dialog.findViewById(R.id.editemail);
+            ednme.setText(contact);
+            edemail.setText(contactemail);
+            edphn.setText(contactphone);
+
+            TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+            txt.setText("Contact");
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    contactphone=edphn.getText().toString();
+                    contact=ednme.getText().toString();
+                    contactemail=edemail.getText().toString();
+                    if(!contactphone.isEmpty()&&!contact.isEmpty()&&!contactemail.isEmpty())
+                    {
+                        sccontact.setText(contact+" "+contactemail+" "+contactphone);
+                        Schoolinfomodel objdr=installist.get(pos);
+
+                        objdr.setContactphone(contactphone);
+                        objdr.setAedcontact(contact);
+                        objdr.setAedcontactemail(contactemail);
+
+
+                        //changes in installlist
+                        if(insposition!=-1) {
+                            Schoolinfomodel objin = drilllist.get(insposition);
+
+                            objin.setContactphone(contactphone);
+                            objin.setAedcontact(contact);
+                            objin.setAedcontactemail(contactemail);
+                        }
+
+                        //changes in servicelist
+                        if(serpostion!=-1) {
+                            Schoolinfomodel objser = servicelist.get(serpostion);
+
+                            objser.setContactphone(contactphone);
+                            objser.setAedcontact(contact);
+                            objser.setAedcontactemail(contactemail);
+                        }
+
+                        listops listops=new listops(getActivity());
+                        listops.putdrilllist(drilllist);
+                        listops.putinstallllist(installist);
+                        listops.putservicelist(servicelist);
+                        dialog.dismiss();
+                    }
+                    else
+                    {
+                        MyToast.popmessage("Please Enter all Fields",getActivity());
+                    }
+                }
+            });
+            dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+        }
+        else if(v.getId()==R.id.imginprincipal)
+        {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dailog_editpricipal);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+            Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+            final EditText ednme=(EditText)dialog.findViewById(R.id.editname);
+
+            final EditText edemail=(EditText)dialog.findViewById(R.id.editemail);
+            TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+            ednme.setText(principal);
+            edemail.setText(principalemail);
+
+            txt.setText("Principal");
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    principal=ednme.getText().toString();
+                    principalemail=edemail.getText().toString();
+                    if(!principal.isEmpty()&&!principalemail.isEmpty())
+                    {
+                        scprincipal.setText(principal+" "+principalemail);
+                        Schoolinfomodel objdr=installist.get(pos);
+
+                        objdr.setPrincipal(principal);
+                        objdr.setPrincemail(principalemail);
+
+
+                        //changes in installlist
+                        if(insposition!=-1) {
+                            Schoolinfomodel objin = drilllist.get(insposition);
+
+                            objin.setPrincipal(principal);
+                            objin.setPrincemail(principalemail);
+                        }
+
+                        //changes in servicelist
+                        if(serpostion!=-1) {
+                            Schoolinfomodel objser = servicelist.get(serpostion);
+
+                            objser.setPrincipal(principal);
+                            objser.setPrincemail(principalemail);
+                        }
+
+                        listops listops=new listops(getActivity());
+                        listops.putdrilllist(drilllist);
+                        listops.putinstallllist(installist);
+                        listops.putservicelist(servicelist);
+                        dialog.dismiss();
+                    }
+                    else
+                    {
+                        MyToast.popmessage("Please Enter all Fields",getActivity());
+                    }
+                }
+            });
+            dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+        }
+      /*  else if(v.getId()==R.id.imgincode)
+        {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_editinfo);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+            Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+            final EditText ed=(EditText)dialog.findViewById(R.id.editfield);
+            TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+            ed.setText(code);
+            txt.setText("School Code");
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    code=ed.getText().toString();
+                    if(!code.isEmpty())
+                    {
+                        sccode.setText(code);
+                        Schoolinfomodel objdr=installist.get(pos);
+
+                        objdr.setSchoolcode(code);
+
+
+                        //changes in installlist
+                        if(insposition!=-1) {
+                            Schoolinfomodel objin = drilllist.get(insposition);
+
+                            objin.setSchoolcode(code);
+
+                        }
+
+                        //changes in servicelist
+                        if(serpostion!=-1) {
+                            Schoolinfomodel objser = servicelist.get(serpostion);
+
+                            objser.setSchoolcode(code);
+                        }
+
+                        listops listops=new listops(getActivity());
+                        listops.putdrilllist(drilllist);
+                        listops.putinstallllist(installist);
+                        listops.putservicelist(servicelist);
+                        dialog.dismiss();
+                    }
+                    else
+                    {
+                        ed.setHint("Please enter");
+                    }
+                }
+            });
+            dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
+        }*/
+
+
+        else if(v.getId()==R.id.addnewinsubmit)
+         {
+
+                boolean savedat=true;
+             if(phyloc.getText().toString().isEmpty()||pad1lot.getText().toString().isEmpty()||pad2lot.getText().toString().isEmpty()||updatepad1newdate.getText().toString().isEmpty()
+                     ||updatepad2newdate.getText().toString().isEmpty())
+             {
+                 savedat=false;
+             }
+
+             if(savedat)
+             {
+                 JSONObject adultpad1 = new JSONObject();
+                 try {
+                     adultpad1.put("expirationdate", pad1expdate.getText().toString());
+                     adultpad1.put("newdate", updatepad1newdate.getText().toString());
+                     adultpad1.put("lot", pad1lot.getText().toString());
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+
+                 JSONObject adultpad2 = new JSONObject();
+                 try {
+                     adultpad2.put("expirationdate", pad2expdate.getText().toString());
+                     adultpad2.put("newdate", updatepad2newdate.getText().toString());
+                     adultpad2.put("lot", pad2lot.getText().toString());
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+
+                 JSONObject pedpad = new JSONObject();
+                 try {
+                     pedpad.put("expirationdate", padpedexpdate.getText().toString());
+                     pedpad.put("newdate", updatepadpednewdate.getText().toString());
+                     pedpad.put("lot", padpedlot.getText().toString());
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+
+                 JSONObject newinstalldata = new JSONObject();
+                 try {
+                     newinstalldata.put("adultpadA", adultpad1);
+                     newinstalldata.put("adultpadB", adultpad2);
+                     newinstalldata.put("pediatricpad", pedpad);
+//                     newinstalldata.put("aedid",aedmodel.getAedid());
+                     newinstalldata.put("comments", comments.getText().toString());
+                     newinstalldata.put("spare_battery_install_date", sparebatterydate.getText().toString());
+
+                     newinstalldata.put("statusindicator", statin.isChecked() ? "yes" : "no");
+                     newinstalldata.put("fastresponsekit", fastresp.isChecked() ? "yes" : "no");
+                     newinstalldata.put("datacardstatus", datacard.isChecked() ? "yes" : "no");
+                     if (newserial.isChecked()) {
+                         newinstalldata.put("serialnumber", ednewserial.getText().toString());
+                     } else {
+                         newinstalldata.put("serialnumber", "");
+                     }
+                     newinstalldata.put("pediatrickey", pediatric.isChecked() ? "yes" : "no");
+                     newinstalldata.put("physicallocation", phyloc.getText().toString());
+                     newinstalldata.put("total_aeds", totalaeds.getText().toString());
+                     newinstalldata.put("total_responders", totalresponders.getText().toString());
+                 } catch (Exception e) {
+                     Log.e("safa", e.getMessage());
+                 }
+
+                 drill = new JSONObject();
+                 try {
+                     //drill.put("id",scid.getText().toString());
+                     drill.put("address", address);
+                     drill.put("address", city);
+                     drill.put("state", state);
+                     drill.put("zip", zip);
+                     drill.put("phone", phone);
+                     drill.put("principal", principal);
+                     drill.put("principalemail", principalemail);
+                     drill.put("contact", contact);
+                     drill.put("contactemail", contactemail);
+                     drill.put("contactphone", contactphone);
+                     drill.put("code", code);
+                     drill.put("installid", installid);
+                     drill.put("status", "success");
+                     drill.put("installdata", newinstalldata);
+
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+                 listops listops = new listops(getActivity());
+                 ArrayList<Schoolinfomodel> schoolinfomodelslist = listops.getdrilllist();
+                 Intent intent = new Intent(getActivity(), CaptureSignature.class);
+                 intent.putExtra("sname", schoolinfomodelslist.get(pos).getSchoolname());
+                 schoolname=schoolinfomodelslist.get(pos).getSchoolname();
+                 startActivityForResult(intent, 1);
+             }
+             else
+             {
+                MyToast.popmessage("Please enter all the required fields",getActivity());
+             }
+
+         }
+        else if(v.getId()==R.id.updateinsphysicalloc)
+         {
+             final Dialog dialog = new Dialog(getActivity());
+             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+             dialog.setContentView(R.layout.dialog_editinfo);
+             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+             Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+             final EditText ed=(EditText)dialog.findViewById(R.id.editfield);
+             TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+             ed.setText(phyloc.getText().toString());
+             txt.setText("Physical Location");
+             update.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     String ad=ed.getText().toString();
+                     if(!ad.isEmpty())
+                     {
+                         phyloc.setText(ad);
+                         dialog.dismiss();
+                     }
+                     else
+                     {
+                         ed.setHint("Please enter");
+                     }
+                 }
+             });
+             dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+             {
+                 @Override
+                 public void onClick(View view) {
+                     dialog.cancel();
+                 }
+             });
+             dialog.show();
+         }
+
+
+         else if(v.getId()==R.id.updateinspad1newdate)
+         {
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     updatepad1newdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+         else if(v.getId()==R.id.updateinspad2newdate)
+         {
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     updatepad2newdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+         else if(v.getId()==R.id.updateinspadpednewdate)
+         {
+
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                          date = String.valueOf(datepicked);
+                     }
+                     updatepadpednewdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+         else if(v.getId()==R.id.inssparebatterydate)
+         {
+
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     sparebatterydate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+
+    }
+
+    private int monthnum(String mont) {
+        // TODO Auto-generated method stub
+        String[] months={"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
+        int index=0;
+        for(int i=0;i<months.length;i++)
+        {
+            if(mont.equals(months[i]))
+                index=i;
+
+        }
+        return index+1;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch(requestCode) {
+            case 1:
+                if (resultCode == getActivity().RESULT_OK) {
+
+                    Bundle bundle = data.getExtras();
+                    String status  = bundle.getString("status");
+                    if(status.equalsIgnoreCase("done")){
+                        String image=bundle.getString("sign");
+                        sign_image=bundle.getString("path");
+                        name=bundle.getString("name");
+                        date=bundle.getString("date");
+                        time=bundle.getString("time");
+                        esr_image=bundle.getString("pathesr");
+                        esrname=bundle.getString("nameesr");
+                        Log.e("data",drill.toString());
+                        listops listops=new listops(getActivity());
+                        ArrayList<Schoolinfomodel> schoolinfomodelslist=listops.getinstalllist();
+                        schoolname=bundle.getString("sname");
+
+
+
+
+                        Networkstate nwst=new Networkstate(getActivity());
+                        if(nwst.haveNetworkConnection())
+                        {
+                            //Toast.makeText(getActivity(),"Have internet,send the data to server",Toast.LENGTH_SHORT).show();
+                            new Senddata().execute();
+                            Log.e("signimage",sign_image);
+                        }
+                        else
+                        {
+
+
+
+
+                            //Schoolinfomodel schoolinfomodel=schoolinfomodelslist.get(pos);
+                            schoolinfomodelslist.get(pos).setInstallstatus("Pending");
+                            schoolinfomodelslist.get(pos).setNewinstalldata(drill.toString());
+                            schoolinfomodelslist.get(pos).setNewinstallsignimage(sign_image);
+                            schoolinfomodelslist.get(pos).setInstalldate(date);
+                            schoolinfomodelslist.get(pos).setInstalltime(time);
+                            schoolinfomodelslist.get(pos).setInstallname(name);
+                            schoolinfomodelslist.get(pos).setEsrnameinstall(esrname);
+                            schoolinfomodelslist.get(pos).setEsrimageinstall(esr_image);
+                            schoolinfomodelslist.get(pos).setSchoolnamefromsign(schoolname);
+
+
+
+                            // schoolinfomodel.setDrilldata(drill.toString());
+
+                            listops.putinstallllist(schoolinfomodelslist);
+                            addpendinglist(schoolinfomodelslist.get(pos).getSchoolcode(),schoolinfomodelslist.get(pos).getname(),schoolinfomodelslist.get(pos).getNewinstalldata());
+
+                            MyToast.popmessage("Added to Pending Uploads",getActivity());
+
+                            ((setinstalllist)getActivity()).setupinstalllist(1);
+
+
+
+
+
+
+                        }
+
+
+                    }
+                }
+                break;
+        }
+
+
+    }
+
+    private void addpendinglist(String schoolcode,String name,String data) {
+        listops listops=new listops(getActivity());
+        ArrayList<PendingUploadModel> pendinglist=listops.getpendinglist();
+        if(pendinglist.size()>0)
+        {
+
+            int position=doeslisthavethisschool(schoolcode);
+            if(position!=-1) {
+                Log.e("pos",position+"");
+                PendingUploadModel pend = pendinglist.get(position);
+                pend.setCode(schoolcode);
+                pend.setSchoolName(name);
+                pend.setInstallstatus("Pending");
+                pend.setNewinstalldata(data);
+                pendinglist.set(position,pend);
+            }
+            else
+            {
+                PendingUploadModel pend = new PendingUploadModel();
+                pend.setCode(schoolcode);
+                pend.setSchoolName(name);
+                pend.setInstallstatus("Pending");
+                pend.setNewinstalldata(data);
+                pendinglist.add(pend);
+            }
+
+        }
+        else
+        {
+            PendingUploadModel pend=new PendingUploadModel();
+            pend.setCode(schoolcode);
+            pend.setSchoolName(name);
+            pend.setInstallstatus("Pending");
+            pend.setNewinstalldata(data);
+            pendinglist.add(pend);
+
+        }
+        listops.putpendinglist(pendinglist);
+    }
+
+
+
+    private int  doeslisthavethisschool(String code) {
+
+
+        listops listops=new listops(getActivity());
+        ArrayList<PendingUploadModel> pendinglist=listops.getpendinglist();
+        int posi=-1;
+        for(int i=0;i<pendinglist.size();i++)
+        {
+            if(pendinglist.get(i).getCode().equals(code))
+            {
+                posi=i;
+            }
+
+        }
+            return posi;
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    class Senddata extends AsyncTask<String, Integer, String> {
+
+        ProgressDialog dialog;
+        listops listops=new listops(getActivity());
+
+        HttpURLConnection conn = null;
+        DataOutputStream dos = null;
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        int bytesRead, bytesAvailable, bufferSize,bytesRead2, bytesAvailable2, bufferSize2;
+        byte[] buffer,buffer2;
+        int maxBufferSize = 1 * 1024 * 1024;
+
+        String line = null;
+
+        String floatMessage = null;
+
+        File f,f2;
+
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(getActivity());
+            dialog.show();
+            dialog.setMessage("Sending Data");
+            dialog.setCancelable(false);
+
+            //create a file to write bitmap data
+
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+
+
+
+
+                f = new File(sign_image);
+
+                FileInputStream fileInputStream = new FileInputStream(f);
+
+                f2 = new File(esr_image);
+
+                FileInputStream fileInputStream2 = new FileInputStream(f2);
+
+
+                URL url = new URL("http://doe.emergencyskills.com/api/api.php");
+
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setDoInput(true); // Allow Inputs
+                conn.setDoOutput(true); // Allow Outputs
+                conn.setUseCaches(false); // Don't use a Cached Copy
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Connection", "Keep-Alive");
+                //  conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                conn.setRequestProperty("media_file", sign_image);
+
+                conn.setRequestProperty("media_file_esr", esr_image);
+
+
+                dos = new DataOutputStream(conn.getOutputStream());
+
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+//Adding Parameter name
+
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"apikey\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes("daMEs26rufAqasw2pUYU"); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+
+                //adding parameter description
+                dos.writeBytes("Content-Disposition: form-data; name=\"method\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes("uploadNewInstall"); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                //adding parameter  event id
+                dos.writeBytes("Content-Disposition: form-data; name=\"data\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(drill.toString()); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                //adding parameter  event id
+                dos.writeBytes("Content-Disposition: form-data; name=\"date\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(date); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                //adding parameter  event id
+                dos.writeBytes("Content-Disposition: form-data; name=\"time\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(time); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+                //adding parameter  event id
+                dos.writeBytes("Content-Disposition: form-data; name=\"uploader\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(listops.getString("username")); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+
+                //adding parameter  event id
+                dos.writeBytes("Content-Disposition: form-data; name=\"name\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(name); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+                //adding parameter  event id
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"esr_name\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(esrname); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"schoolname\"" + lineEnd);
+                //dos.writeBytes("Content-Type: text/plain; charset=UTF-8" + lineEnd);
+                //dos.writeBytes("Content-Length: " + name.length() + lineEnd);
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(schoolname); // mobile_no is String variable
+                dos.writeBytes(lineEnd);
+
+                dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+
+                //adding parameter  event id
+
+
+
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"media_file_esr\";filename=\"" + esr_image + "\"" + lineEnd);
+                dos.writeBytes(lineEnd);
+
+
+                // create a buffer of maximum size
+                bytesAvailable = fileInputStream2.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                buffer = new byte[bufferSize];
+                // read file and write it into form...
+                bytesRead = fileInputStream2.read(buffer, 0, bufferSize);
+
+                while (bytesRead > 0) {
+
+
+                    dos.write(buffer, 0, bufferSize);
+                    bytesAvailable = fileInputStream2.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = fileInputStream2.read(buffer, 0, bufferSize);
+
+
+                }
+
+                // send multipart form data necesssary after file data...
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + lineEnd) ;
+                fileInputStream2.close();;
+
+
+
+
+                dos.writeBytes("Content-Disposition: form-data; name=\"media_file\";filename=\"" + sign_image + "\"" + lineEnd);
+                dos.writeBytes(lineEnd);
+
+
+
+                // create a buffer of maximum size
+                bytesAvailable2 = fileInputStream.available();
+                bufferSize2 = Math.min(bytesAvailable2, maxBufferSize);
+                buffer2 = new byte[bufferSize2];
+                // read file and write it into form...
+                bytesRead2 = fileInputStream.read(buffer2, 0, bufferSize2);
+
+                while (bytesRead2 > 0) {
+
+
+                    dos.write(buffer2, 0, bufferSize2);
+                    bytesAvailable2 = fileInputStream.available();
+                    bufferSize2 = Math.min(bytesAvailable2, maxBufferSize);
+                    bytesRead2 = fileInputStream.read(buffer2, 0, bufferSize2);
+
+
+                }
+
+                // send multipart form data necesssary after file data...
+                dos.writeBytes(lineEnd);
+                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+
+
+
+
+
+
+
+                // conn.setRequestMethod("GET");
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                fileInputStream.close();
+
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line + '\n');
+                }
+
+                String jsonString = stringBuilder.toString();
+                Log.e("jsonString", jsonString);
+                JSONObject resJson = new JSONObject(jsonString);
+                 floatMessage = resJson.getString("status");
+
+
+                Log.e("floatMessage", floatMessage);
+                dos.flush();
+                dos.close();
+
+
+
+            }
+            catch (Exception e) {
+                Log.e("das",String.valueOf(e.getMessage()));
+            }
+            return floatMessage;
+        }
+
+
+
+
+        protected void onPostExecute(String result) {
+            dialog.dismiss();
+
+            super.onPostExecute(result);
+            Log.e("fa",floatMessage);
+
+
+            listops listops=new listops(getActivity());
+            ArrayList<Schoolinfomodel> schoolinfomodelslist=listops.getinstalllist();
+
+
+            MyToast.popmessage("Data sent to server",getActivity());
+            schoolinfomodelslist.get(pos).setInstallstatus("Completed");
+           listops.putinstallllist(schoolinfomodelslist);
+
+            ((setinstalllist)getActivity()).setupinstalllist(0);
+            if(f.exists()) {
+                f.delete();
+            }
+            if(f2.exists()) {
+                f2.delete();
+            }
+
+
+
+
+
+
+
+
+        }
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+        inputStream.close();
+        return result;
+
+    }
+
+    public interface setinstalllist
+    {
+        public void setupinstalllist(int i);
+    }
+
+
+}

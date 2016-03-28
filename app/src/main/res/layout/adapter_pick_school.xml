@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+
+        <TextView
+            android:id="@+id/tvSchoolCodeValue"
+            android:gravity="center"
+            android:layout_weight=".20"
+            android:textSize="16sp"
+            android:textColor="@color/PageNameStripBackground"
+            android:text="SCHOOL CODE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="@color/PageNameStripBackground"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:id="@+id/tvSchoolNameValue"
+            android:gravity="center"
+            android:layout_weight=".5"
+            android:textSize="16sp"
+            android:textColor="@color/PageNameStripBackground"
+            android:text="NAME"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="@color/PageNameStripBackground"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvSchoolZipValue"
+            android:gravity="center"
+            android:layout_weight=".15"
+            android:textSize="16sp"
+            android:textColor="@color/PageNameStripBackground"
+            android:text="ZIP"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="@color/PageNameStripBackground"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight=".15"
+            android:textSize="16sp"
+            android:textColor="@color/PageNameStripBackground"
+            android:text="VISITING?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:buttonTint="@color/PageNameStripBackground"
+                android:id="@+id/cbVisitingStatus"
+                android:layout_width="28dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:layout_height="28dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

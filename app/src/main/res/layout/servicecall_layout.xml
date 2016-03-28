@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background_edit_custom"
+        android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="SERIAL #: B11D- 01132"
+                android:id="@+id/seraedserialnumber"
+                android:textColor="@color/PageNameStripBackground"
+                android:textSize="22sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/PageNameStripBackground">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="80dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@android:color/transparent"
+                    android:drawableLeft="@drawable/custom_checkbox"
+                    android:id="@+id/serstatusindicator"
+                    android:text="Status Indicator"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/PageNameStripBackground"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@android:color/transparent"
+                    android:drawableLeft="@drawable/custom_checkbox"
+                    android:id="@+id/serunitisunavailable"
+                    android:text="Unit is Unavailable"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/PageNameStripBackground"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:button="@android:color/transparent"
+                    android:drawableLeft="@drawable/custom_checkbox"
+                    android:id="@+id/sererrorwithunit"
+                    android:text="There is an ERROR with this unit"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                >
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+                        android:text="Exp. Date:"
+                        android:textColor="@color/PageNameStripBackground"
+                        android:textSize="22sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="New Date:"
+                        android:textColor="@color/PageNameStripBackground"
+                        android:textSize="22sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lot #:"
+                        android:textColor="@color/PageNameStripBackground"
+                        android:textSize="22sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".7">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text="Adult Pads A"
+                        android:textColor="@color/PageNameStripBackground" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:background="@color/White"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/serpad1expdate"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="@color/White"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <TextView
+
+                        android:layout_width="fill_parent"
+                        android:id="@+id/updatepad1newdate"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <EditText
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:id="@+id/serpad1lot"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit" />
+
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".7">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text="Adult Pads B"
+                        android:textColor="@color/PageNameStripBackground" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".5"
+                    android:gravity="center_vertical"
+                    android:background="@color/White"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/serpad2expdate"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:background="@color/White"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <TextView
+
+                        android:layout_width="fill_parent"
+                        android:id="@+id/updatepad2newdate"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <EditText
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:id="@+id/serpad2lot"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit" />
+
+
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".7">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text="Pediatric pads"
+                        android:textColor="@color/PageNameStripBackground" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".5"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:background="@color/White"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:id="@+id/serpadpedexpdate"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/White"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:id="@+id/updatepadpednewdate"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+
+                <EditText
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:id="@+id/serpadpedlot"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_edit" />
+
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".7">
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_edit" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/PageNameStripBackground" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight=".5"
+                    android:layout_marginRight="2dp"
+                    android:orientation="horizontal">
+
+
+                    <CheckBox
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/serfrxpedkey"
+                        android:text="Has FRX Pediatric Key"
+                        android:textColor="@color/PageNameStripBackground"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+
+
+
+                <CheckBox
+                    android:buttonTint="@color/Red"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/serrequestdoepedkey"
+                    android:text="Request DOE Send Pediatric Key"
+                    android:textColor="@color/Red"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center|left"
+                    android:paddingLeft="10dp"
+
+                    android:text="Spare Battery Before Date"
+                    android:textColor="@color/PageNameStripBackground" />
+                <EditText
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:id="@+id/sparebattery"
+                    android:clickable="false"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/background_edit" />
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+
+                        android:layout_width="fill_parent"
+                        android:id="@+id/updatesparebatterynewdate"
+                        android:layout_weight="1"
+                        android:hint="New date"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edit" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/PageNameStripBackground" />
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight=".6"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/seroutwithcoach"
+                    android:text="PSAL AED out with coach"
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="15sp" />
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight=".6"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <CheckBox
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/serrequestdoesendfastresponse"
+                    android:text="Request DOE Send Fast Response Kit"
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:background="@color/PageNameStripBackground" />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight=".6"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Comments"
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/sercomments"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_edit_custom" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        android:layout_weight="3"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_edit_custom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/serhasnewserial"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Serial Number:"
+
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:background="@color/White"
+                        android:layout_width="250dp"
+                        android:id="@+id/serednewserial"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/PageNameStripBackground"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/serdatacardstat"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Data Card Status"
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sersenddsparebattery"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request DOE send spare battery"
+                    android:textColor="@color/PageNameStripBackground"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".6"
+            android:orientation="vertical"
+            android:gravity="right|center_vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+               android:layout_margin="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/PageNameStripBackground"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="PHYSICAL LOCATION:"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+
+
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/PageNameStripBackground"
+
+
+                    >
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Main Entrance Next to School Safety"
+                        android:textColor="#ffffff"
+                        android:id="@+id/servicephyloc"
+
+
+                        />
+
+
+
+                    <TextView
+
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/service_calls_update_button_background"
+                        android:gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:text="UPDATE"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/servicephyloc"
+                        android:id="@+id/updateserviceaedlocation"
+                        android:textStyle="bold"
+                        android:textColor="@color/UpdateButtonServiceCall"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

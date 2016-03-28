@@ -1,0 +1,174 @@
+<!--
+  Copyright 2012 The Android Open Source Project
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/White"
+    >
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:background="@color/PageNameStripBackground"
+        android:layout_width="match_parent"
+        android:id="@+id/ll"
+        android:layout_height="wrap_content">
+
+        <TextView
+
+            android:layout_marginLeft="10dp"
+            android:textColor="#FFFFFF"
+            android:text="PICK SCHOOLS"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btndownnloaddata"
+        android:layout_below="@+id/ll">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
+
+
+
+
+    <LinearLayout
+        android:background="@drawable/rounded_corner_edit_text_backgound"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight=".20"
+            android:textSize="16sp"
+            android:textColor="#017AC3"
+            android:text="SCHOOL CODE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#017AC3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight=".5"
+            android:textSize="16sp"
+            android:textColor="#017AC3"
+            android:text="NAME"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#017AC3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight=".15"
+            android:textSize="16sp"
+            android:textColor="#017AC3"
+            android:text="ZIP"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:background="#017AC3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_weight=".15"
+            android:textSize="16sp"
+            android:textColor="#017AC3"
+            android:text="VISITING?"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <!--<TextView
+            android:background="#017AC3"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />-->
+
+       <!-- <TextView
+            android:gravity="center"
+            android:layout_weight=".25"
+            android:textSize="16sp"
+            android:id="@+id/btndownnloaddata"
+            android:textColor="#017AC3"
+            android:text="DOWNLOAD DATA"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />-->
+
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_corner_edit_text_backgound"
+        android:id="@+id/lvPickSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#017AC3"
+        android:dividerHeight="1dp"/>
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+    <TextView
+
+        android:textColor="@color/White"
+        android:background="@drawable/rounded_corner_buttons_background_for_pending_uploads_page_upload_buttton"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btndownnloaddata"
+        android:gravity="center"
+        android:text="DOWNLOAD DATA"
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>

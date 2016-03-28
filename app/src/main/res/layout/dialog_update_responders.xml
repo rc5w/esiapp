@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:background="@drawable/rounded_corner_background_dialog_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="UPDATE: RESPONDERS"
+                android:textColor="@color/DialogBackground"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_width="36px"
+                android:id="@+id/ivClose"
+                android:layout_height="36px"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/close_large" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:background="@drawable/rounded_corner_background_dialog_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+               <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical">
+
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                   <EditText
+                       android:layout_width="fill_parent"
+                       android:layout_height="fill_parent"
+                       android:layout_weight="1"
+                       android:id="@+id/partname1"
+                       android:textColor="@color/White"
+                       android:textColorHint="@color/White"
+                       android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                       android:layout_margin="15dp"
+                       android:hint="Name"
+                       android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool1"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:id="@+id/partname2"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:layout_margin="15dp"
+                           android:hint="Name"
+                           android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool2"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:id="@+id/partname3"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:layout_margin="15dp"
+                           android:hint="Name"
+                           android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool3"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:id="@+id/partname4"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:layout_margin="15dp"
+                           android:hint="Name"
+                           android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool4"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:id="@+id/partname5"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:layout_margin="15dp"
+                           android:hint="Name"
+                           android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool5"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:id="@+id/partname6"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:layout_margin="15dp"
+                           android:hint="Name"
+                           android:padding="5dp"/>
+                       <EditText
+                           android:layout_width="fill_parent"
+                           android:layout_height="fill_parent"
+                           android:layout_weight="1"
+                           android:textColor="@color/White"
+                           android:textColorHint="@color/White"
+                           android:padding="5dp"
+                           android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                           android:id="@+id/partschool6"
+                           android:layout_margin="15dp"
+                           android:hint="School Name"/>
+                   </LinearLayout>
+                   </LinearLayout>
+
+
+
+
+                <Button
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner_background_dialog_buttons"
+                    android:text="ADD RESPONDERS"
+                    android:id="@+id/editupdate"
+                    android:textSize="20sp"
+                    android:textColor="@color/DialogBackground"
+                    android:textStyle="bold" />
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"></LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

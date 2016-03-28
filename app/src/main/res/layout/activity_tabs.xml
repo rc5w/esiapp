@@ -1,0 +1,247 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    >
+
+    <LinearLayout
+        android:background="@drawable/home_page_header_gradient_background"
+        android:layout_weight=".18"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/llPickSchool"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+<!--            <ImageView
+                android:src="@mipmap/logo_menu"
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="Pick Schools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/White"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/llDrills"
+            android:gravity="center"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="Drills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/White"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/llServiceCalls"
+            android:gravity="center"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="Service Calls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <TextView
+            android:background="@color/White"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/llNewInstalls"
+            android:gravity="center"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="New Installs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/White"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:id="@+id/llPendingUploads"
+            android:gravity="center"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="18sp"
+                android:textColor="@color/White"
+                android:text="Pending Uploads"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/White"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:background="#FFFFFF"
+            android:layout_weight=".175"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/AED"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/welcome"
+                android:text="Welcome"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/AED"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/checkfornew"
+                android:text="Check For New Build"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/AED"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/maillog"
+                android:text="Mail Log"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/AED"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:id="@+id/logoutname"
+                android:text="Logout"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="#017AC3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll1"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll2"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll3"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll4"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll5"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll6"
+            android:layout_weight=".165"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            ></LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_weight=".81"
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+</LinearLayout>

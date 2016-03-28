@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@color/White"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+    <TableLayout android:layout_height="wrap_content"
+        android:id="@+id/tableLayouct" android:layout_width="match_parent">
+
+
+    <TableRow android:id="@+id/tableRow3" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+        <TextView android:layout_height="wrap_content" android:id="@+id/textView4"
+            android:text="School Representative Signature" android:maxLength="36"
+            android:textSize="25dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"/>
+        <TextView android:layout_height="wrap_content" android:id="@+id/textView3"
+            android:text="ESI Representative Signature"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="fill_parent"
+            android:textSize="25dp"
+            android:layout_weight="1" />
+    </TableRow>
+    </TableLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/AED"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:orientation="horizontal">
+    <LinearLayout android:layout_height="fill_parent"
+        android:id="@+id/linearLayout" android:layout_width="match_parent"
+       android:orientation="vertical"
+        android:layout_weight="1"
+
+
+        >
+    </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="@color/AED"/>
+        <LinearLayout android:layout_height="fill_parent"
+            android:id="@+id/linearLayoutesr" android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/AED"/>
+    <TableLayout android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1" android:layout_width="match_parent">
+
+
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView android:layout_height="wrap_content" android:id="@+id/textView2"
+                android:text="School Representative Name" android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content" android:paddingLeft="10sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25dp"
+
+                />
+            <EditText android:layout_height="wrap_content" android:id="@+id/yourName"
+                android:layout_weight="1" android:layout_width="match_parent"
+
+
+                android:textSize="25dp">
+
+            </EditText>
+        </TableRow>
+
+        <TableRow android:id="@+id/tableRowb" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView android:layout_height="wrap_content" android:id="@+id/textView25"
+                android:text="ESI Representative Name" android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content" android:paddingLeft="10sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25dp"
+
+                />
+            <EditText android:layout_height="wrap_content" android:id="@+id/esrName"
+                android:layout_weight="1" android:layout_width="match_parent"
+
+
+                android:textSize="25dp">
+
+            </EditText>
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout android:layout_height="wrap_content"
+        android:id="@+id/tableLayout" android:layout_width="match_parent">
+
+
+        <TableRow android:id="@+id/tableRow" android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+            <TextView android:layout_height="wrap_content"
+                android:text="School Name" android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content" android:paddingLeft="10sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25dp"
+
+                />
+            <EditText android:layout_height="wrap_content" android:id="@+id/schoolname"
+                android:layout_weight="1" android:layout_width="match_parent"
+
+
+                android:textSize="25dp">
+
+            </EditText>
+        </TableRow>
+
+
+
+    </TableLayout>
+
+    <LinearLayout android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2" android:layout_width="fill_parent">
+
+        <Button android:layout_height="60dp" android:layout_weight="1"
+            android:text="Cancel" android:layout_width="fill_parent" android:id="@+id/cancel"
+            android:background="@drawable/rounded_corner_buttons_background"
+            android:textColor="@color/White"
+            android:textSize="30dp"
+            android:layout_margin="10dp"
+            />
+
+
+
+        <Button android:layout_height="60dp" android:layout_weight="1"
+            android:text="Clear" android:layout_width="fill_parent" android:id="@+id/clear"
+            android:background="@drawable/rounded_corner_buttons_background"
+            android:layout_margin="10dp"
+            android:textSize="30dp"
+            android:textColor="@color/White"/>
+
+
+        <Button android:layout_height="60dp" android:layout_weight="1"
+            android:text="Save" android:layout_width="fill_parent" android:id="@+id/getsign"
+            android:background="@drawable/rounded_corner_buttons_background"
+            android:textColor="@color/White"
+            android:textSize="30dp"
+            android:layout_margin="10dp"/>
+
+
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

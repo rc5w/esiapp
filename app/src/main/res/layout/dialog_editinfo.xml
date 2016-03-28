@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:background="@drawable/rounded_corner_background_dialog_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="EDIT INFORMATION"
+                android:id="@+id/editinfotittle"
+                android:textColor="@color/DialogBackground"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_marginRight="5dp"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/close_large" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:background="@drawable/rounded_corner_background_dialog_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/DialogBackground"
+                    android:hint="Enter"
+                    android:textSize="30dp"
+                    android:id="@+id/editfield"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/White"/>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/editupdate"
+                        android:layout_marginRight="30dp"
+                        android:background="@drawable/rounded_corner_background_dialog_buttons"
+                        android:text="Update"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="24sp"
+                        android:textColor="@color/DialogBackground"
+                        android:textStyle="bold" />
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"></LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

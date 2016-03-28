@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:background="@drawable/rounded_corner_background_dialog_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="WARNING : OTHER REASONS"
+                android:textColor="@color/DialogBackground"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_width="36px"
+                android:layout_height="36px"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/close_small" />
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:background="@drawable/rounded_corner_background_dialog_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="144px"
+                android:layout_height="144px"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/attention" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="OTHER REASONS"
+                android:textColor="@color/White"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please describe the reason below:"
+                android:textColor="@color/White"
+                android:textSize="13sp" />
+
+
+            <EditText
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/White"
+                android:textCursorDrawable="@null"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/rounded_corner_dialog_other_reasons_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="180px"
+                    android:layout_height="60px"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/rounded_corner_background_dialog_buttons"
+                    android:text="SUBMIT"
+                    android:textColor="@color/DialogBackground"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="180px"
+                    android:layout_height="60px"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/rounded_corner_background_dialog_buttons"
+                    android:text="RESET"
+                    android:textColor="@color/DialogBackground"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"></LinearLayout>
+        </LinearLayout>
+            </ScrollView>
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,429 @@
+package com.emergencyskills.doe.aed.UI.fragments;
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.emergencyskills.doe.aed.R;
+import com.emergencyskills.doe.aed.UI.activity.CaptureSignature;
+import com.emergencyskills.doe.aed.Utils.DatePicker;
+import com.emergencyskills.doe.aed.Utils.MonthYearPicker;
+import com.emergencyskills.doe.aed.Utils.MyToast;
+import com.emergencyskills.doe.aed.Utils.Networkstate;
+import com.emergencyskills.doe.aed.Utils.listops;
+import com.emergencyskills.doe.aed.models.PendingUploadModel;
+import com.emergencyskills.doe.aed.models.Schoolinfomodel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+/**
+ * Created by Karan on 12/3/2015.
+ */
+public class AddnewinstallSingle extends Fragment implements View.OnClickListener {
+
+    private TextView updateloc,phyloc, scserialnumber;
+    int pos,insposition,serpostion;
+    JSONObject drill;
+    String sign_image;
+    String name,schoolname;
+    private EditText pad1expdate,pad2expdate,padpedexpdate,comments,pad1lot,pad2lot,padpedlot,ednewserial,totalaeds,totalresponders;
+
+    private TextView updatepad1newdate,updatepad2newdate,updatepadpednewdate,sparebatterydate;
+
+    CheckBox newserial,statin,fastresp,datacard,pediatric;
+    ArrayList<Schoolinfomodel> drilllist,servicelist,installist;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.new_install_single, container, false);
+        // Toast.makeText(getActivity(), "service calls", Toast.LENGTH_LONG).show();
+        initview(rootView);
+        if(getArguments()!=null)
+        {
+            scserialnumber.setText( "SERIAL #: " + serialnumber );
+            id=getArguments().getString("schoolid");
+            installid=getArguments().getString("installid");
+        }
+        listops listops=new listops(getActivity());
+        drilllist=listops.getdrilllist();
+        servicelist=listops.getservicelist();
+        installist=listops.getinstalllist();
+        Schoolinfomodel objdr=installist.get(pos);
+        String id=objdr.getSchoolid();
+        insposition=getposition(id, drilllist);
+        serpostion=getposition(id,servicelist);
+
+
+        return rootView;
+    }
+
+    private void initview(View rootView) {
+
+        pad1expdate=(EditText)rootView.findViewById(R.id.inspad1expdate);
+        pad2expdate=(EditText)rootView.findViewById(R.id.inspad2expdate);
+        padpedexpdate=(EditText)rootView.findViewById(R.id.inspadpedexpdate);
+
+
+
+        comments=(EditText)rootView.findViewById(R.id.inscomments);
+        sparebatterydate=(TextView) rootView.findViewById(R.id.inssparebatterydate);
+        sparebatterydate.setOnClickListener(this);
+
+
+
+        updatepad1newdate=(TextView) rootView.findViewById(R.id.updateinspad1newdate);
+        updatepad2newdate=(TextView) rootView.findViewById(R.id.updateinspad2newdate);
+        updatepadpednewdate=(TextView) rootView.findViewById(R.id.updateinspadpednewdate);
+
+
+        updatepad1newdate.setOnClickListener(this);
+        updatepad2newdate.setOnClickListener(this);
+        updatepadpednewdate.setOnClickListener(this);
+
+
+        scserialnumber=(TextView)rootView.findViewById(R.id.serialnumber);
+
+
+        updateloc=(TextView) rootView.findViewById(R.id.updateinsphysicalloc);
+        updateloc.setOnClickListener(this);
+        phyloc=(TextView) rootView.findViewById(R.id.insphyloc);
+        phyloc.setOnClickListener(this);
+
+        ednewserial=(EditText) rootView.findViewById(R.id.insednewserial);
+
+        newserial=(CheckBox)rootView.findViewById(R.id.inscbnewserial);
+        newserial.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    ednewserial.setClickable(true);
+                }
+                else
+                {
+                    ednewserial.setClickable(false);
+                }
+
+
+            }
+        });
+
+        statin=(CheckBox)rootView.findViewById(R.id.insstatusindicator);
+        fastresp=(CheckBox)rootView.findViewById(R.id.insfastresponsekit);
+        datacard=(CheckBox)rootView.findViewById(R.id.inscbdatacardstatus);
+        pediatric=(CheckBox)rootView.findViewById(R.id.inscbpediatric);
+
+        pad1lot=(EditText)rootView.findViewById(R.id.inspad1lotnumber);
+        pad2lot=(EditText)rootView.findViewById(R.id.inspad2lotnumber);
+        padpedlot=(EditText)rootView.findViewById(R.id.inspadpedlotnumber);
+
+    }
+    private int getposition(String id, ArrayList<Schoolinfomodel> drilllist) {
+        int dup=-1;
+
+
+        for(int i=0;i<drilllist.size();i++)
+        {
+            if(id.equals(drilllist.get(i).getSchoolid()))
+            {
+                dup=i;
+            }
+        }
+        return dup;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId()==R.id.updateinsphysicalloc)
+         {
+             final Dialog dialog = new Dialog(getActivity());
+             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+             dialog.setContentView(R.layout.dialog_editinfo);
+             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.transparent)));
+             Button update=(Button)dialog.findViewById(R.id.editupdate);
+
+             final EditText ed=(EditText)dialog.findViewById(R.id.editfield);
+             TextView txt=(TextView) dialog.findViewById(R.id.editinfotittle);
+             ed.setText(phyloc.getText().toString());
+             txt.setText("Physical Location");
+             update.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     String ad=ed.getText().toString();
+                     if(!ad.isEmpty())
+                     {
+                         phyloc.setText(ad);
+                         dialog.dismiss();
+                     }
+                     else
+                     {
+                         ed.setHint("Please enter");
+                     }
+                 }
+             });
+             dialog.findViewById(R.id.ivClose).setOnClickListener(new View.OnClickListener()
+             {
+                 @Override
+                 public void onClick(View view) {
+                     dialog.cancel();
+                 }
+             });
+             dialog.show();
+         }
+
+
+         else if(v.getId()==R.id.updateinspad1newdate)
+         {
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     updatepad1newdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+         else if(v.getId()==R.id.updateinspad2newdate)
+         {
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     updatepad2newdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+         else if(v.getId()==R.id.updateinspadpednewdate)
+         {
+
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                          date = String.valueOf(datepicked);
+                     }
+                     updatepadpednewdate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+         else if(v.getId()==R.id.inssparebatterydate)
+         {
+
+             final DatePicker myp=new DatePicker(getActivity());
+             myp.build(new DialogInterface.OnClickListener() {
+
+                 @Override
+                 public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+
+                     String monthname=myp.getSelectedMonthName();
+                     String mon;
+
+                     int mont=monthnum(monthname);
+                     if(mont<10)
+                     {
+                         mon="0"+mont;
+                     }
+                     else
+                     {
+                         mon=String.valueOf(mont);
+                     }
+                     String year=String.valueOf(myp.getSelectedYear());
+                     int datepicked=myp.getSelecteddate();
+                     String date;
+                     if(datepicked<10)
+                     {
+                         date=String.valueOf("0"+datepicked);
+                     }
+                     else {
+                         date = String.valueOf(datepicked);
+                     }
+                     sparebatterydate.setText(year+"-"+mon+"-"+date);
+
+
+                 }
+             }, null);
+             myp.show();
+         }
+
+
+    }
+
+    private int monthnum(String mont) {
+        // TODO Auto-generated method stub
+        String[] months={"January","Febuary","March","April","May","June","July","August","September","October","November","December"};
+        int index=0;
+        for(int i=0;i<months.length;i++)
+        {
+            if(mont.equals(months[i]))
+                index=i;
+
+        }
+        return index+1;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+            // hmm
+        
+    }
+
+    class updateui extends AsyncTask<String ,String,String>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
+
+}
